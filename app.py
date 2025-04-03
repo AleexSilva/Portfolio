@@ -1,17 +1,16 @@
 import re
 import streamlit as st
-import pandas as pd
 from pyairtable import Api # https://pyairtable.readthedocs.io/en/stable/getting-started.html
 from datetime import datetime
-import streamlit as st
-import requests
-from io import BytesIO
-from PIL import Image
-import cv2
-import numpy as np
-from rembg import remove
-import onnxruntime
 import time
+#from rembg import remove
+#import requests
+#from io import BytesIO
+#from PIL import Image
+#import cv2
+#import numpy as np
+#import onnxruntime
+
 
 
 st.set_page_config(
@@ -136,35 +135,35 @@ st.html(profileHTML)
 # Creamos los tabs de Streamlit
 tabSkils,tabPortfolio,tabContact =st.tabs(['My skills','My projects','Contact'])
 
-def remove_background(image_url):
-    try:
-        # Download image from URL
-        response = requests.get(image_url)
-        response.raise_for_status()  # Ensure the request was successful
+# def remove_background(image_url):
+#     try:
+#         # Download image from URL
+#         response = requests.get(image_url)
+#         response.raise_for_status()  # Ensure the request was successful
 
-        # Convert image to numpy array
-        image_array = np.asarray(bytearray(response.content), dtype=np.uint8)
+#         # Convert image to numpy array
+#         image_array = np.asarray(bytearray(response.content), dtype=np.uint8)
         
-        # Decode image (force it to load as RGB)
-        image = cv2.imdecode(image_array, cv2.IMREAD_UNCHANGED)
+#         # Decode image (force it to load as RGB)
+#         image = cv2.imdecode(image_array, cv2.IMREAD_UNCHANGED)
 
-        # Ensure image has the correct number of channels (convert grayscale to RGB)
-        if image is None:
-            raise ValueError("Image could not be loaded.")
+#         # Ensure image has the correct number of channels (convert grayscale to RGB)
+#         if image is None:
+#             raise ValueError("Image could not be loaded.")
 
-        if len(image.shape) == 2:  # Grayscale image
-            image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
-        elif image.shape[2] == 4:  # Convert from RGBA to RGB
-            image = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR)
+#         if len(image.shape) == 2:  # Grayscale image
+#             image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
+#         elif image.shape[2] == 4:  # Convert from RGBA to RGB
+#             image = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR)
 
-        # Remove background
-        image_no_bg = remove(image)
+#         # Remove background
+#         image_no_bg = remove(image)
 
-        return image_no_bg
+#         return image_no_bg
 
-    except Exception as e:
-        print(f"Error processing image: {e}")
-        return None
+#     except Exception as e:
+#         print(f"Error processing image: {e}")
+#         return None
     
 # Mostramos el tab de Skills
 with tabSkils:
@@ -235,7 +234,7 @@ with tabPortfolio:
         # st.write(skill['fields'])
         projectid= project['id']
         project=project["fields"]
-        projectName = project['Name']        
+        projectName = project['Name']       
         projectDescription = project['Description']    
         # Creamos la lista de Skills y Knowledge
         projectSkils = project['skills']
