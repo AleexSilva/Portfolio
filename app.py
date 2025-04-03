@@ -3,14 +3,6 @@ import streamlit as st
 from pyairtable import Api # https://pyairtable.readthedocs.io/en/stable/getting-started.html
 from datetime import datetime
 import time
-#from rembg import remove
-#import requests
-#from io import BytesIO
-#from PIL import Image
-#import cv2
-#import numpy as np
-#import onnxruntime
-
 
 
 st.set_page_config(
@@ -99,8 +91,7 @@ def is_valid_email(email):
 #     return re.match(pattern, phone)
 
 
-
-# Creamos la plantilla de perfil con las clases CSS de MaterializeCSS 
+# Creating the profile page with MaterializeCSS
 # https://materializecss.com/
 profileHTML=f"""
 <div class="row">
@@ -129,46 +120,19 @@ profileHTML=f"""
         </div>
     </div>
             """
-# Mostramos el HTML generado
+# we show the generated HTML
+
 st.html(profileHTML)
 
-# Creamos los tabs de Streamlit
+
+#Streamlit Tabs
 tabSkils,tabPortfolio,tabContact =st.tabs(['My skills','My projects','Contact'])
 
-# def remove_background(image_url):
-#     try:
-#         # Download image from URL
-#         response = requests.get(image_url)
-#         response.raise_for_status()  # Ensure the request was successful
-
-#         # Convert image to numpy array
-#         image_array = np.asarray(bytearray(response.content), dtype=np.uint8)
-        
-#         # Decode image (force it to load as RGB)
-#         image = cv2.imdecode(image_array, cv2.IMREAD_UNCHANGED)
-
-#         # Ensure image has the correct number of channels (convert grayscale to RGB)
-#         if image is None:
-#             raise ValueError("Image could not be loaded.")
-
-#         if len(image.shape) == 2:  # Grayscale image
-#             image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
-#         elif image.shape[2] == 4:  # Convert from RGBA to RGB
-#             image = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR)
-
-#         # Remove background
-#         image_no_bg = remove(image)
-
-#         return image_no_bg
-
-#     except Exception as e:
-#         print(f"Error processing image: {e}")
-#         return None
     
-# Mostramos el tab de Skills
+# Skills tabs
 with tabSkils:
     skills=""
-    # Hacemos el ciclo creando las plantillas de Skills
+    # for loop to create the skill templates
     for skill in tblskills.all(sort=['-Level']):
         # st.write(skill['fields'])
         skill=skill['fields']
@@ -186,7 +150,7 @@ with tabSkils:
         # else:
         #     skillImageHTML = ""
         skillStars=""
-        # Creación de rating con estrellas
+        # Creating rating with stars
         for i in range(1,6):
             if i<=skillLevel:
                 # Estrella completa
@@ -196,9 +160,9 @@ with tabSkils:
                 skillStars=skillStars+'<i class="material-icons">star_border</i>'
                 
         skillYears = skill['startYear']   
-        # Cálculo de años de experiencia
+        # years experiences calculation
         skillExperience = int(today) -int(skillYears)
-        # Plantilla del card de skill
+        # Card skill template
         skillHTML = f"""                    
                 <div class="col s12 m4">
                     <div class="card small">
@@ -223,20 +187,21 @@ with tabSkils:
                 {skills}       
             </div>       
         """     
-    # Mostramos los skills
+    # Skills section
     st.html(skillsHTML) 
 with tabPortfolio:       
     projects=""
     skillsHTML=""
     knowledgeHTML=""
-    # Hacemos el ciclo creando las plantillas de proyectos
+    # for loop to create the project templates
     for project in tblprojects.all():
         # st.write(skill['fields'])
         projectid= project['id']
         project=project["fields"]
         projectName = project['Name']       
         projectDescription = project['Description']    
-        # Creamos la lista de Skills y Knowledge
+        
+        # We create the list of Skills and Knowledge
         projectSkils = project['skills']
         skillsHTML=[f'<div class="chip green lighten-4">{p}</div>' for p in projectSkils]
         skillsHTML="".join(skillsHTML)
@@ -246,7 +211,8 @@ with tabPortfolio:
         
         projectLink = project['link'] 
         projectImageUrl = project['image'][0]['url']        
-        # Plantilla de proyectos
+        
+        # Project templates
         projectHTML = f"""                    
                 <div class="col s12 m6">
                     <div class="card large">                    
@@ -279,7 +245,7 @@ with tabPortfolio:
                 {projects}       
             </div>       
         """     
-    # Mostramos los proyectos
+    # Projects section
     st.html(projectsHTML)        
 with tabContact:
     st.info("If you think I can help you with some of your projects or entrepreneurships, send me a message I'll contact you as soon as I can. I'm always glad to help")
