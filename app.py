@@ -63,7 +63,7 @@ AIRTABLE_API_KEY = st.secrets.AIRTABLE_API_KEY # Crea el token en este enlace ht
 # Seleccionamos el base id de Airtable
 AIRTABLE_BASE_ID=st.secrets.AIRTABLE_BASE_ID #Copia la plantilla de este enlace https://airtable.com/appv1dCIP9oXJOXFE/shruOGxFeklRDFp0i/tblIBw5i2w5geQhQc/viwOxM9R5nUpGo3ZO?blocks=hide
 
-# Creamos el objeto de Airtable
+# Airtable API key
 api = Api(AIRTABLE_API_KEY)
 # Cargamos las tablas
 tblprofile = api.table(AIRTABLE_BASE_ID, 'profile')
@@ -139,16 +139,6 @@ with tabSkils:
         skillName = skill['Name']
         skillDescription = skill['Notes']    
         skillLevel = skill['Level']
-        #skillImageList = skill.get('picture', [])
-        #skillImage = skillImageList[0]['url'] if skillImageList else None
-        #skillImage = skill['picture'][0]['url']
-        # Add image if available
-        # if skillImage:
-        #     cleaned_img = remove_background(skillImage) # Clean background if needed
-        #     #cleaned_img = skillImage
-        #     skillImageHTML = f'<div style="text-align:center;"><img src="{cleaned_img}" width="80" height="80" style="border-radius:50%;"></div>'
-        # else:
-        #     skillImageHTML = ""
         skillStars=""
         # Creating rating with stars
         for i in range(1,6):
@@ -267,16 +257,10 @@ with tabContact:
             if parEmail and not email_valid:
                 st.warning("⚠️ Please enter a valid email address (e.g., example@email.com).")
 
-            # if parPhoneNumber and not phone_valid:
-            #     st.warning("⚠️ Please enter a valid phone number (e.g., +1234567890).")
-
             #btnEnviar = st.button("Send", type="primary", disabled=not (email_valid and phone_valid))
             btnEnviar = st.button("Send", type="primary", disabled=not (email_valid ))
             
-    # if btnEnviar:
-    #     # Creamos el registro de contactos
-    #     tblContacts.create({"Name":parName,"email":parEmail,"phoneNumber":parPhoneNumber,"Notes":parNotes})
-    #     st.toast("Message sent")
+
     
     if btnEnviar:
         with st.spinner("Sending message..."):
