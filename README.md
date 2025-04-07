@@ -26,3 +26,19 @@ This project is a personal portfolio website showcasing my projects, skills, and
     └── test_connection.py
 ```
 
+---
+
+## 📦 Required Libraries
+
+The project relies on the libraries specified in the `environment.yml` file.
+
+---
+
+## ⚙️ Installation
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/AleexSilva/Portfolio.git
+   cd Portfolio
+   ```
+
