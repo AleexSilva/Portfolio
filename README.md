@@ -64,3 +64,10 @@ The project relies on the libraries specified in the `environment.yml` file.
 
 ---
 
+## 📄 Files
+
+- `app.py`: Main application script that initializes and runs the Streamlit app.
+- `environment.yml`: Specifies the dependencies and environment configuration for the project.
+- `test/test_connection.py`: Contains tests to verify the application's connectivity and functionality.
+
+---
