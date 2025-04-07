@@ -42,3 +42,25 @@ The project relies on the libraries specified in the `environment.yml` file.
    cd Portfolio
    ```
 
+2. **Set Up the Environment**:
+   - If using Conda:
+     ```bash
+     conda env create -f environment.yml
+     conda activate portfolio-env
+     ```
+   - If using pip, manually install the packages listed in `environment.yml`.
+
+---
+
+## 🚀 Usage
+
+1. **Run the Application**:
+   ```bash
+   streamlit run app.py
+   ```
+
+2. **Access the Portfolio**:
+   Open the provided local URL in your web browser to view the portfolio.
+
+---
+
